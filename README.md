@@ -1,5 +1,5 @@
-# Raidplaner - Star Wars: The Old Republic
-This extension for the [Raidplaner](https://github.com/Daries-dev/Raidplaner-Core) system is specifically designed for **Star Wars: The Old Republic** (SWTOR).
+# MD-Raidplaner - Star Wars: The Old Republic
+This extension for the [MD-Raidplaner](https://github.com/MD-Raidplaner/Core) system is specifically designed for **Star Wars: The Old Republic** (SWTOR).
 
 
 ## License
