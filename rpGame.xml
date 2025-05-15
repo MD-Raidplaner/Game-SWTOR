@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://md-raidplaner.de" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://md-raidplaner.de https://md-raidplaner.de/XSD/1.0/game.xsd">
+    <import>
+        <game identifier="swtor">
+            <title language="de">Star Wars: The Old Republic</title>
+            <title language="en">Star Wars: The Old Republic</title>
+        </game>
+    </import>
+</data>
