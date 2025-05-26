@@ -2,11 +2,10 @@
 
 namespace rp\system\event\listener;
 
-use rp\data\classification\ClassificationCache;
-use rp\data\race\RaceCache;
-use rp\data\role\RoleCache;
-use rp\data\server\ServerCache;
 use rp\event\character\CharacterAddCreateForm;
+use rp\system\cache\eager\ClassificationCache;
+use rp\system\cache\eager\RaceCache;
+use rp\system\cache\eager\ServerCache;
 use wcf\system\form\builder\container\FormContainer;
 use wcf\system\form\builder\container\TabFormContainer;
 use wcf\system\form\builder\container\TabTabMenuFormContainer;
@@ -44,7 +43,7 @@ final class SWTORCharacterAddCreateFormListener
             SingleSelectionFormField::create('raceID')
                 ->label('rp.race.title')
                 ->required()
-                ->options(['' => 'wcf.global.noSelection'] + RaceCache::getInstance()->getRaces())
+                ->options(['' => 'wcf.global.noSelection'] + (new RaceCache())->getCache()->getRaces())
                 ->addValidator(new FormFieldValidator('check', function (SingleSelectionFormField $formField) {
                     $value = $formField->getSaveValue();
 
@@ -55,7 +54,7 @@ final class SWTORCharacterAddCreateFormListener
             SingleSelectionFormField::create('serverID')
                 ->label('rp.server.title')
                 ->required()
-                ->options(['' => 'wcf.global.noSelection'] + ServerCache::getInstance()->getServers())
+                ->options(['' => 'wcf.global.noSelection'] + (new ServerCache())->getCache()->getServers())
                 ->addValidator(new FormFieldValidator('check', function (SingleSelectionFormField $formField) {
                     $value = $formField->getSaveValue();
 
@@ -91,7 +90,7 @@ final class SWTORCharacterAddCreateFormListener
                             SingleSelectionFormField::create('classificationID' . $i)
                                 ->label('rp.classification.title')
                                 ->required()
-                                ->options(['' => 'wcf.global.noSelection'] + ClassificationCache::getInstance()->getClassifications())
+                                ->options(['' => 'wcf.global.noSelection'] + (new ClassificationCache())->getCache()->getClassifications())
                                 ->addValidator(new FormFieldValidator('check', function (SingleSelectionFormField $formField) {
                                     $value = $formField->getSaveValue();
 

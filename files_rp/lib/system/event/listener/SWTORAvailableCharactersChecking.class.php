@@ -3,10 +3,10 @@
 namespace rp\system\event\listener;
 
 use rp\data\character\CharacterProfile;
-use rp\data\classification\ClassificationCache;
 use rp\data\event\Event;
-use rp\data\role\RoleCache;
 use rp\event\character\AvailableCharactersChecking;
+use rp\system\cache\eager\ClassificationCache;
+use rp\system\cache\eager\RoleCache;
 use rp\system\character\AvailableCharacter;
 use wcf\util\StringUtil;
 
@@ -77,8 +77,8 @@ final class SWTORAvailableCharactersChecking
      */
     private function getFightStyleLabel(array $fightStyle): string
     {
-        $classification = ClassificationCache::getInstance()->getClassificationByID($fightStyle['classificationID']);
-        $role = RoleCache::getInstance()->getRoleByID($fightStyle['roleID']);
+        $classification = (new ClassificationCache())->getCache()->getClassification($fightStyle['classificationID']);
+        $role = (new RoleCache())->getCache()->getRole($fightStyle['roleID']);
 
         $label = $classification ? $classification->getTitle() : '';
         if ($role) {

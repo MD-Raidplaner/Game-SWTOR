@@ -2,7 +2,6 @@
 
 namespace rp\system\event\listener;
 
-use rp\data\game\GameCache;
 use rp\event\event\EventCreateForm;
 use wcf\system\form\builder\container\FormContainer;
 use wcf\system\form\builder\field\IntegerFormField;

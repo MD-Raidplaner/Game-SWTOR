@@ -3,9 +3,9 @@
 namespace rp\system\event\listener;
 
 use rp\data\character\CharacterList;
-use rp\data\classification\ClassificationCache;
-use rp\data\role\RoleCache;
 use rp\event\raid\character\CharacterCollecting;
+use rp\system\cache\eager\ClassificationCache;
+use rp\system\cache\eager\RoleCache;
 
 /**
  * Set data for editing characters.
@@ -31,12 +31,12 @@ final class SWTORCharacterCollecting
                 $id = $character->getObjectID() . '_' . $fightStyleID;
 
                 $label = '';
-                $classification = ClassificationCache::getInstance()->getClassificationByID($fightStyle['classificationID']);
+                $classification = (new ClassificationCache())->getCache()->getClassification($fightStyle['classificationID']);
                 if ($classification) {
                     $label = $classification->getTitle();
                 }
 
-                $role = RoleCache::getInstance()->getRoleByID($fightStyle['roleID']);
+                $role = (new RoleCache())->getCache()->getRole($fightStyle['roleID']);
                 if ($role) {
                     if (!empty($label)) $label .= ', ';
                     $label .= $role->getTitle();

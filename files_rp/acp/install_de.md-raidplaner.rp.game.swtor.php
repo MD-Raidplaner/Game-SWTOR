@@ -6,57 +6,58 @@
  * @license MD-Raidplaner is licensed under Creative Commons Attribution-ShareAlike 4.0 International
  */
 
-use rp\data\game\GameCache;
 use rp\data\point\account\PointAccount;
 use rp\data\point\account\PointAccountEditor;
 use rp\data\raid\event\RaidEventEditor;
+use rp\system\cache\eager\GameCache;
 use wcf\data\language\item\LanguageItemAction;
 use wcf\data\package\PackageCache;
 use wcf\system\language\LanguageFactory;
 use wcf\util\StringUtil;
 
 $packageID = $this->installation->getPackageID();
+$gameCache = (new GameCache())->getCache();
 
 /** @var PointAccount $pointAccount */
 // raid events with point account 
 $pointAccount = PointAccountEditor::create([
-    'gameID' => GameCache::getInstance()->getGameByIdentifier('swtor')->gameID,
+    'gameID' => $gameCache->getGameByIdentifier('swtor')->getObjectID(),
     'title' => 'SWTOR 1.0',
 ]);
 insertEvent(getClassic(), $pointAccount, $packageID);
 
 $pointAccount = PointAccountEditor::create([
-    'gameID' => GameCache::getInstance()->getGameByIdentifier('swtor')->gameID,
+    'gameID' => $gameCache->getGameByIdentifier('swtor')->getObjectID(),
     'title' => 'SWTOR 2.0',
 ]);
 insertEvent(getEvents(), $pointAccount, $packageID);
 
 $pointAccount = PointAccountEditor::create([
-    'gameID' => GameCache::getInstance()->getGameByIdentifier('swtor')->gameID,
+    'gameID' => $gameCache->getGameByIdentifier('swtor')->getObjectID(),
     'title' => 'SWTOR 3.0',
 ]);
 insertEvent(getRevan(), $pointAccount, $packageID);
 
 $pointAccount = PointAccountEditor::create([
-    'gameID' => GameCache::getInstance()->getGameByIdentifier('swtor')->gameID,
+    'gameID' => $gameCache->getGameByIdentifier('swtor')->getObjectID(),
     'title' => 'SWTOR 4.0',
 ]);
 insertEvent(getFallen(), $pointAccount, $packageID);
 
 $pointAccount = PointAccountEditor::create([
-    'gameID' => GameCache::getInstance()->getGameByIdentifier('swtor')->gameID,
+    'gameID' => $gameCache->getGameByIdentifier('swtor')->getObjectID(),
     'title' => 'SWTOR 5.6',
 ]);
 insertEvent(getUprising(), $pointAccount, $packageID);
 
 $pointAccount = PointAccountEditor::create([
-    'gameID' => GameCache::getInstance()->getGameByIdentifier('swtor')->gameID,
+    'gameID' => $gameCache->getGameByIdentifier('swtor')->getObjectID(),
     'title' => 'SWTOR 6.0',
 ]);
 insertEvent(getOnslaught(), $pointAccount, $packageID);
 
 $pointAccount = PointAccountEditor::create([
-    'gameID' => GameCache::getInstance()->getGameByIdentifier('swtor')->gameID,
+    'gameID' => $gameCache->getGameByIdentifier('swtor')->getObjectID(),
     'title' => 'SWTOR 7.0',
 ]);
 insertEvent(getLotS(), $pointAccount, $packageID);
@@ -65,7 +66,7 @@ function insertEvent(array $entries, PointAccount $pointAccount, $packageID)
 {
     foreach ($entries as $entry) {
         $event = RaidEventEditor::create([
-            'gameID' => GameCache::getInstance()->getGameByIdentifier('swtor')->gameID,
+            'gameID' => $gameCache->getGameByIdentifier('swtor')->getObjectID(),
             'pointAccountID' => $pointAccount->accountID,
             'icon' => $entry['icon'],
         ]);
