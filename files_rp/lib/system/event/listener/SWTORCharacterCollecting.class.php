@@ -5,7 +5,7 @@ namespace rp\system\event\listener;
 use rp\data\character\CharacterList;
 use rp\event\raid\character\CharacterCollecting;
 use rp\system\cache\eager\ClassificationCache;
-use rp\system\cache\eager\RoleCache;
+use rp\system\role\RoleHandler;
 
 /**
  * Set data for editing characters.
@@ -36,7 +36,7 @@ final class SWTORCharacterCollecting
                     $label = $classification->getTitle();
                 }
 
-                $role = (new RoleCache())->getCache()->getRole($fightStyle['roleID']);
+                $role = RoleHandler::getInstance()->getRoleByIdentifier($fightStyle['role']);
                 if ($role) {
                     if (!empty($label)) $label .= ', ';
                     $label .= $role->getTitle();

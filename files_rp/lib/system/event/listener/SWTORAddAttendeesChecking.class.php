@@ -37,7 +37,7 @@ final class SWTORAddAttendeesChecking
                 'characterID' => $character->getObjectID(),
                 'characterName' => $character->getTitle(),
                 'classificationID' => $fightStyle['classificationID'],
-                'roleID' => $fightStyle['roleID'],
+                'role' => $fightStyle['role'],
             ]);
         }
     }

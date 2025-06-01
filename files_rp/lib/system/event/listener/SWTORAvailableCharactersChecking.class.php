@@ -6,8 +6,8 @@ use rp\data\character\CharacterProfile;
 use rp\data\event\Event;
 use rp\event\character\AvailableCharactersChecking;
 use rp\system\cache\eager\ClassificationCache;
-use rp\system\cache\eager\RoleCache;
 use rp\system\character\AvailableCharacter;
+use rp\system\role\RoleHandler;
 use wcf\util\StringUtil;
 
 /**
@@ -49,7 +49,7 @@ final class SWTORAvailableCharactersChecking
                     $id,
                     $character->getTitle() . ' (' . $label . ')',
                     $fightStyle['classificationID'],
-                    $fightStyle['roleID']
+                    $fightStyle['role']
                 ); // TODO reworking available character
                 $eventChecking->setAvailableCharacter($id, $availableCharacter);
             }
@@ -78,7 +78,7 @@ final class SWTORAvailableCharactersChecking
     private function getFightStyleLabel(array $fightStyle): string
     {
         $classification = (new ClassificationCache())->getCache()->getClassification($fightStyle['classificationID']);
-        $role = (new RoleCache())->getCache()->getRole($fightStyle['roleID']);
+        $role = RoleHandler::getInstance()->getRoleByIdentifier($fightStyle['role']);
 
         $label = $classification ? $classification->getTitle() : '';
         if ($role) {
