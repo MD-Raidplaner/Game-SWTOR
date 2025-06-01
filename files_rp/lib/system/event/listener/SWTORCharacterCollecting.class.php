@@ -19,7 +19,7 @@ final class SWTORCharacterCollecting
     public function __invoke(CharacterCollecting $collecting)
     {
         $characterList = new CharacterList();
-        $characterList->getConditionBuilder()->add('member.gameID = ?', [RP_CURRENT_GAME_ID]);
+        $characterList->getConditionBuilder()->add('member.game = ?', [\RP_CURRENT_GAME]);
         $characterList->getConditionBuilder()->add('member.isDisabled = ?', [0]);
         $characterList->readObjects();
 
