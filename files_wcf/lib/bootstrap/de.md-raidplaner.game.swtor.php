@@ -4,6 +4,7 @@ use rp\event\character\AvailableCharactersChecking;
 use rp\event\character\CharacterAddCreateForm;
 use rp\event\character\CharacterEditData;
 use rp\event\event\EventCreateForm;
+use rp\event\faction\FactionCollecting;
 use rp\event\game\GameCollecting;
 use rp\event\raid\AddAttendeesChecking;
 use rp\event\raid\character\CharacterCollecting;
@@ -14,6 +15,7 @@ use rp\system\event\listener\SWTORCharacterAddCreateFormListener;
 use rp\system\event\listener\SWTORCharacterCollecting;
 use rp\system\event\listener\SWTORCharacterEditDataListener;
 use rp\system\event\listener\SWTOREventCreateFormListener;
+use rp\system\faction\FactionItem;
 use rp\system\game\GameItem;
 use wcf\system\event\EventHandler;
 
@@ -35,5 +37,10 @@ return static function (): void {
                 'swtor'
             )
         );
+    });
+
+    $eventHandler->register(FactionCollecting::class, static function (FactionCollecting $event) {
+        $event->register(new FactionItem('imperial', 'swtor', 'empire'));
+        $event->register(new FactionItem('republic', 'swtor', 'republic'));
     });
 };
