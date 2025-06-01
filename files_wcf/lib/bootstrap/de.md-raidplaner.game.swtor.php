@@ -6,6 +6,7 @@ use rp\event\character\CharacterEditData;
 use rp\event\event\EventCreateForm;
 use rp\event\faction\FactionCollecting;
 use rp\event\game\GameCollecting;
+use rp\event\race\RaceCollecting;
 use rp\event\raid\AddAttendeesChecking;
 use rp\event\raid\character\CharacterCollecting;
 use rp\system\cache\eager\GameCache;
@@ -17,6 +18,7 @@ use rp\system\event\listener\SWTORCharacterEditDataListener;
 use rp\system\event\listener\SWTOREventCreateFormListener;
 use rp\system\faction\FactionItem;
 use rp\system\game\GameItem;
+use rp\system\race\RaceItem;
 use wcf\system\event\EventHandler;
 
 return static function (): void {
@@ -42,5 +44,97 @@ return static function (): void {
     $eventHandler->register(FactionCollecting::class, static function (FactionCollecting $event) {
         $event->register(new FactionItem('imperial', 'swtor', 'empire'));
         $event->register(new FactionItem('republic', 'swtor', 'republic'));
+    });
+
+    $eventHandler->register(RaceCollecting::class, static function (RaceCollecting $event) {
+        $event->register(new RaceItem(
+            'cathar',
+            'swtor',
+            factions: [
+                'imperial',
+                'republic',
+            ]
+        ));
+        $event->register(new RaceItem(
+            'chiss',
+            'swtor',
+            factions: [
+                'imperial',
+                'republic',
+            ]
+        ));
+        $event->register(new RaceItem(
+            'cyborg',
+            'swtor',
+            factions: [
+                'imperial',
+                'republic',
+            ]
+        ));
+        $event->register(new RaceItem(
+            'human',
+            'swtor',
+            factions: [
+                'imperial',
+                'republic',
+            ]
+        ));
+        $event->register(new RaceItem(
+            'miraluka',
+            'swtor',
+            factions: [
+                'imperial',
+                'republic',
+            ]
+        ));
+        $event->register(new RaceItem(
+            'mirialan',
+            'swtor',
+            factions: [
+                'imperial',
+                'republic',
+            ]
+        ));
+        $event->register(new RaceItem(
+            'nautolaner',
+            'swtor',
+            factions: [
+                'imperial',
+                'republic',
+            ]
+        ));
+        $event->register(new RaceItem(
+            'rattataki',
+            'swtor',
+            factions: [
+                'imperial',
+                'republic',
+            ]
+        ));
+        $event->register(new RaceItem(
+            'sith',
+            'swtor',
+            factions: [
+                'imperial',
+                'republic',
+            ]
+        ));
+        $event->register(new RaceItem(
+            'togruta',
+            'swtor',
+            factions: [
+                'imperial',
+                'republic',
+            ]
+        ));
+        $event->register(new RaceItem(
+            'twilek',
+            'swtor',
+            factions: [
+                'imperial',
+                'republic',
+            ]
+        ));
+        
     });
 };

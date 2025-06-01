@@ -4,8 +4,8 @@ namespace rp\system\event\listener;
 
 use rp\event\character\CharacterAddCreateForm;
 use rp\system\cache\eager\ClassificationCache;
-use rp\system\cache\eager\RaceCache;
 use rp\system\cache\eager\ServerCache;
+use rp\system\race\RaceHandler;
 use wcf\system\form\builder\container\FormContainer;
 use wcf\system\form\builder\container\TabFormContainer;
 use wcf\system\form\builder\container\TabTabMenuFormContainer;
@@ -40,10 +40,10 @@ final class SWTORCharacterAddCreateFormListener
                 ->minimum(1)
                 ->maximum(80)
                 ->value(0),
-            SingleSelectionFormField::create('raceID')
+            SingleSelectionFormField::create('race')
                 ->label('rp.race.title')
                 ->required()
-                ->options(['' => 'wcf.global.noSelection'] + (new RaceCache())->getCache()->getRaces())
+                ->options(['' => 'wcf.global.noSelection'] + RaceHandler::getInstance()->getRaces())
                 ->addValidator(new FormFieldValidator('check', function (SingleSelectionFormField $formField) {
                     $value = $formField->getSaveValue();
 
