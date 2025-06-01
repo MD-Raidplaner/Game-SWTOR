@@ -22,6 +22,10 @@
             <item name="rp.character.swtor.upgradePurple.description"><![CDATA[Number of purple augments.]]></item>
         </category>
 
+        <category name="rp.game">
+            <item name="rp.game.swtor"><![CDATA[Star Wars: The Old Republic]]></item>
+        </category>
+
         <category name="rp.server">
             <item name="rp.server.swtor.group.de"><![CDATA[European Servers]]></item>
             <item name="rp.server.swtor.group.us"><![CDATA[US Servers]]></item>

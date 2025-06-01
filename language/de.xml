@@ -22,6 +22,10 @@
             <item name="rp.character.swtor.upgradePurple.description"><![CDATA[Anzahl an lila Aufwertungen.]]></item>
         </category>
 
+        <category name="rp.game">
+            <item name="rp.game.swtor"><![CDATA[Star Wars: The Old Republic]]></item>
+        </category>
+
         <category name="rp.server">
             <item name="rp.server.swtor.group.de"><![CDATA[Europäische Server]]></item>
             <item name="rp.server.swtor.group.us"><![CDATA[US-Server]]></item>
