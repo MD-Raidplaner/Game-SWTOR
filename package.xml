@@ -27,7 +27,6 @@
         <instruction type="file" application="wcf">files_wcf.tar</instruction>
         <instruction type="language" />
 
-        <instruction type="rpClassification" />
         <instruction type="rpServer" />
 		<instruction type="script" application="rp">acp/install_de.md-raidplaner.rp.game.swtor.php</instruction>
     </instructions>
