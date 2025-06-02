@@ -4,7 +4,7 @@ namespace rp\system\event\listener;
 
 use rp\data\character\CharacterList;
 use rp\event\raid\character\CharacterCollecting;
-use rp\system\cache\eager\ClassificationCache;
+use rp\system\classification\ClassificationHandler;
 use rp\system\role\RoleHandler;
 
 /**
@@ -31,7 +31,7 @@ final class SWTORCharacterCollecting
                 $id = $character->getObjectID() . '_' . $fightStyleID;
 
                 $label = '';
-                $classification = (new ClassificationCache())->getCache()->getClassification($fightStyle['classificationID']);
+                $classification = ClassificationHandler::getInstance()->getClassificationByIdentifier($fightStyle['classification']);
                 if ($classification) {
                     $label = $classification->getTitle();
                 }

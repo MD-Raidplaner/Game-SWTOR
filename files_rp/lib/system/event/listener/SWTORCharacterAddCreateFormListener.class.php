@@ -3,8 +3,8 @@
 namespace rp\system\event\listener;
 
 use rp\event\character\CharacterAddCreateForm;
-use rp\system\cache\eager\ClassificationCache;
 use rp\system\cache\eager\ServerCache;
+use rp\system\classification\ClassificationHandler;
 use rp\system\race\RaceHandler;
 use wcf\system\form\builder\container\FormContainer;
 use wcf\system\form\builder\container\TabFormContainer;
@@ -87,10 +87,10 @@ final class SWTORCharacterAddCreateFormListener
                     FormContainer::create('characterFightStyleSection' . $i)
                         ->appendChildren([
                             $fightStyleEnable,
-                            SingleSelectionFormField::create('classificationID' . $i)
+                            SingleSelectionFormField::create('classification' . $i)
                                 ->label('rp.classification.title')
                                 ->required()
-                                ->options(['' => 'wcf.global.noSelection'] + (new ClassificationCache())->getCache()->getClassifications())
+                                ->options(['' => 'wcf.global.noSelection'] + ClassificationHandler::getInstance()->getClassifications())
                                 ->addValidator(new FormFieldValidator('check', function (SingleSelectionFormField $formField) {
                                     $value = $formField->getSaveValue();
 
@@ -146,7 +146,7 @@ final class SWTORCharacterAddCreateFormListener
             $characterTab->appendChild($characterFightStyleTab);
 
             $event->form->getDataHandler()->addProcessor(new VoidFormDataProcessor('fightStyleEnable' . $i));
-            $event->form->getDataHandler()->addProcessor(new VoidFormDataProcessor('classificationID' . $i));
+            $event->form->getDataHandler()->addProcessor(new VoidFormDataProcessor('classification' . $i));
             $event->form->getDataHandler()->addProcessor(new VoidFormDataProcessor('itemLevel' . $i));
             $event->form->getDataHandler()->addProcessor(new VoidFormDataProcessor('implants' . $i));
             $event->form->getDataHandler()->addProcessor(new VoidFormDataProcessor('upgradeBlue' . $i));
@@ -169,9 +169,9 @@ final class SWTORCharacterAddCreateFormListener
                         ];
 
                         if ($fightStyleEnable->getSaveValue()) {
-                            /** @var SingleSelectionFormField $classificationID */
-                            $classificationID = $document->getNodeById('classificationID' . $i);
-                            $newFightStyle['classificationID'] = $classificationID->getSaveValue();
+                            /** @var SingleSelectionFormField $classification */
+                            $classification = $document->getNodeById('classification' . $i);
+                            $newFightStyle['classification'] = $classification->getSaveValue();
 
                             /** @var IntegerFormField $itemLevel */
                             $itemLevel = $document->getNodeById('itemLevel' . $i);
