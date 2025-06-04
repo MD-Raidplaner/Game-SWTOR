@@ -53,15 +53,7 @@ final class SWTORCharacterAddCreateFormListener
                 })),
             SingleSelectionFormField::create('serverID')
                 ->label('rp.server.title')
-                ->required()
-                ->options(['' => 'wcf.global.noSelection'] + (new ServerCache())->getCache()->getServers())
-                ->addValidator(new FormFieldValidator('check', function (SingleSelectionFormField $formField) {
-                    $value = $formField->getSaveValue();
-
-                    if (empty($value)) {
-                        $formField->addValidationError(new FormFieldValidationError('empty'));
-                    }
-                })),
+                ->options(['' => 'wcf.global.noSelection'] + (new ServerCache())->getCache()->getServers()),
         ]);
 
         /** @var TabTabMenuFormContainer $characterTab */
