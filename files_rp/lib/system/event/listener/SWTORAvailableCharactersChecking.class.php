@@ -77,10 +77,10 @@ final class SWTORAvailableCharactersChecking
      */
     private function getFightStyleLabel(array $fightStyle): string
     {
-        $classification = ClassificationHandler::getInstance()->getClassificationByIdentifier($fightStyle['classificationID']);
+        $classification = ClassificationHandler::getInstance()->getClassificationByIdentifier($fightStyle['classification']);
         $role = RoleHandler::getInstance()->getRoleByIdentifier($fightStyle['role']);
 
-        $label = $classification?->getTitle() : '';
+        $label = $classification?->getTitle() ?? '';
         if ($role) {
             $label .= $label ? ', ' : '';
             $label .= $role->getTitle();
