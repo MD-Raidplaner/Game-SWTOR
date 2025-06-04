@@ -6,6 +6,7 @@ use rp\event\character\CharacterAddCreateForm;
 use rp\system\cache\eager\ServerCache;
 use rp\system\classification\ClassificationHandler;
 use rp\system\race\RaceHandler;
+use rp\system\role\RoleHandler;
 use wcf\system\form\builder\container\FormContainer;
 use wcf\system\form\builder\container\TabFormContainer;
 use wcf\system\form\builder\container\TabTabMenuFormContainer;
@@ -94,6 +95,29 @@ final class SWTORCharacterAddCreateFormListener
                                     NonEmptyFormFieldDependency::create('fightStyleEnable' . $i)
                                         ->field($fightStyleEnable)
                                 ),
+                            SingleSelectionFormField::create('role' . $i)
+                                ->label('rp.role.title')
+                                ->required()
+                                ->options(['' => 'wcf.global.noSelection'] + RoleHandler::getInstance()->getRoles())
+                                ->addValidator(new FormFieldValidator('uniqueness', function (SingleSelectionFormField $formField) {
+                                    $value = $formField->getSaveValue();
+
+                                    if (empty($value)) {
+                                        $formField->addValidationError(new FormFieldValidationError('empty'));
+                                    } else {
+                                        $role = RoleHandler::getInstance()->getRoleByIdentifier($value);
+                                        if ($role === null) {
+                                            $formField->addValidationError(new FormFieldValidationError(
+                                                'invalid',
+                                                'rp.role.error.invalid'
+                                            ));
+                                        }
+                                    }
+                                }))
+                                ->addDependency(
+                                    NonEmptyFormFieldDependency::create('fightStyleEnable' . $i)
+                                        ->field($fightStyleEnable)
+                                ),
                         ]),
 
                     FormContainer::create('fightStyleEquipment' . $i)
@@ -139,6 +163,7 @@ final class SWTORCharacterAddCreateFormListener
 
             $event->form->getDataHandler()->addProcessor(new VoidFormDataProcessor('fightStyleEnable' . $i));
             $event->form->getDataHandler()->addProcessor(new VoidFormDataProcessor('classification' . $i));
+            $event->form->getDataHandler()->addProcessor(new VoidFormDataProcessor('role' . $i));
             $event->form->getDataHandler()->addProcessor(new VoidFormDataProcessor('itemLevel' . $i));
             $event->form->getDataHandler()->addProcessor(new VoidFormDataProcessor('implants' . $i));
             $event->form->getDataHandler()->addProcessor(new VoidFormDataProcessor('upgradeBlue' . $i));
@@ -164,6 +189,10 @@ final class SWTORCharacterAddCreateFormListener
                             /** @var SingleSelectionFormField $classification */
                             $classification = $document->getNodeById('classification' . $i);
                             $newFightStyle['classification'] = $classification->getSaveValue();
+
+                            /** @var SingleSelectionFormField $role */
+                            $role = $document->getNodeById('role' . $i);
+                            $newFightStyle['role'] = $role->getSaveValue();
 
                             /** @var IntegerFormField $itemLevel */
                             $itemLevel = $document->getNodeById('itemLevel' . $i);
