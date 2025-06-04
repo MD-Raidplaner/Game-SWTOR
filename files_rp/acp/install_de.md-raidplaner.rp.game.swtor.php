@@ -15,48 +15,47 @@ use wcf\system\language\LanguageFactory;
 use wcf\util\StringUtil;
 
 $packageID = $this->installation->getPackageID();
-$game = 'swtor';
 
 /** @var PointAccount $pointAccount */
 // raid events with point account 
 $pointAccount = PointAccountEditor::create([
-    'game' => $game,
+    'game' => 'swtor',
     'title' => 'SWTOR 1.0',
 ]);
 insertEvent(getClassic(), $pointAccount, $packageID);
 
 $pointAccount = PointAccountEditor::create([
-    'game' => $game,
+    'game' => 'swtor',
     'title' => 'SWTOR 2.0',
 ]);
 insertEvent(getEvents(), $pointAccount, $packageID);
 
 $pointAccount = PointAccountEditor::create([
-    'game' => $game,
+    'game' => 'swtor',
     'title' => 'SWTOR 3.0',
 ]);
 insertEvent(getRevan(), $pointAccount, $packageID);
 
 $pointAccount = PointAccountEditor::create([
-    'game' => $game,
+    'game' => 'swtor',
     'title' => 'SWTOR 4.0',
 ]);
 insertEvent(getFallen(), $pointAccount, $packageID);
 
 $pointAccount = PointAccountEditor::create([
-    'game' => $game,
+    'game' => 'swtor',
     'title' => 'SWTOR 5.6',
 ]);
 insertEvent(getUprising(), $pointAccount, $packageID);
 
 $pointAccount = PointAccountEditor::create([
-    'game' => $game,
+    'game' => 'swtor',
     'title' => 'SWTOR 6.0',
 ]);
 insertEvent(getOnslaught(), $pointAccount, $packageID);
 
 $pointAccount = PointAccountEditor::create([
-    'game' => $game,
+    'game' => 'swtor',
     'title' => 'SWTOR 7.0',
 ]);
 insertEvent(getLotS(), $pointAccount, $packageID);
@@ -65,7 +64,7 @@ function insertEvent(array $entries, PointAccount $pointAccount, $packageID)
 {
     foreach ($entries as $entry) {
         $event = RaidEventEditor::create([
-            'game' => $game,
+            'game' => 'swtor',
             'pointAccountID' => $pointAccount->accountID,
             'icon' => $entry['icon'],
         ]);
