@@ -59,7 +59,7 @@ final class SWTORGameListener
         return \array_combine(
             \array_keys($classificationConfig),
             \array_map(
-                fn($class, $roles) => new Classification(
+                fn($roles, $class) => new Classification(
                     $class,
                     WCF::getLanguage()->get(\sprintf('rp.classification.swtor.%s', $class)),
                     \sprintf('swtor_%s', $class),
@@ -67,8 +67,8 @@ final class SWTORGameListener
                     races: $races,
                     roles: $roles
                 ),
-                \array_keys($classificationConfig),
-                \array_values($classificationConfig)
+                \array_values($classificationConfig),
+                \array_keys($classificationConfig)
             )
         );
     }
