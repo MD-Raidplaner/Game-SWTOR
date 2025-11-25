@@ -27,8 +27,16 @@ final class SWTORGameListener
     private function getFactions(): array
     {
         return [
-            'imperial' => new Faction('imperial', icon: 'swotor_imperial'),
-            'republic' => new Faction('republic', icon: 'swotor_republic'),
+            'imperial' => new Faction(
+                'imperial',
+                WCF::getTPL()->get('rp.faction.swtor.imperial'),
+                'swotor_imperial'
+            ),
+            'republic' => new Faction(
+                'republic',
+                WCF::getTPL()->get('rp.faction.swtor.republic'),
+                'swotor_republic'
+            ),
         ];
     }
 }
