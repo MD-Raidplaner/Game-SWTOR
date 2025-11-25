@@ -27,8 +27,8 @@ final class SWTORGameListener
     private function getFactions(): array
     {
         return [
-            'imperial' => new Faction('imperial'),
-            'republic' => new Faction('republic'),
+            'imperial' => new Faction('imperial', icon: 'swotor_imperial'),
+            'republic' => new Faction('republic', icon: 'swotor_republic'),
         ];
     }
 }
