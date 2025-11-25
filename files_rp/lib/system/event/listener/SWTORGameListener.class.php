@@ -26,17 +26,16 @@ final class SWTORGameListener
      */
     private function getFactions(): array
     {
-        return [
-            'imperial' => new Faction(
-                'imperial',
-                WCF::getTPL()->get('rp.faction.swtor.imperial'),
-                'swotor_imperial'
-            ),
-            'republic' => new Faction(
-                'republic',
-                WCF::getTPL()->get('rp.faction.swtor.republic'),
-                'swotor_republic'
-            ),
-        ];
+        return \array_combine(
+            $factionNames = ['imperial', 'republic'],
+            \array_map(
+                fn($faction) => new Faction(
+                    $faction,
+                    WCF::getTPL()->get(\sprintf('rp.faction.swtor.%s', $faction)),
+                    \sprintf('swtor_%s', $faction)
+                ),
+                $factionNames
+            )
+        );
     }
 }
