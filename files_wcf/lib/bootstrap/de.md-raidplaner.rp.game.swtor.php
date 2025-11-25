@@ -18,9 +18,7 @@ return new class {
     {
         EventHandler::getInstance()->register(
             \rp\event\game\GameCollecting::class,
-            static function (\rp\event\game\GameCollecting $event): void {
-                $event->register(new \rp\system\game\Game('swtor'));
-            }
+            \rp\system\event\listener\SWTORGameListener::class
         );
     }
 };
