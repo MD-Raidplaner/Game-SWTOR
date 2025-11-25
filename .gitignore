@@ -60,3 +60,5 @@ nbactions.xml
 
 # Node.js
 node_modules/
+
+vendor/
