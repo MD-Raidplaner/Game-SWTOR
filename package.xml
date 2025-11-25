@@ -4,8 +4,8 @@
     xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/package.xsd">
     <packageinformation>
         <packagename>MD Raidplaner: Game: Star Wars: The Old Republic</packagename>
-        <version>1.0.0 dev 1</version>
-        <date>2022-08-25</date>
+        <version>1.0.0 Alpha 1</version>
+        <date>2022-11-25</date>
     </packageinformation>
 
     <authorinformation>
@@ -23,6 +23,7 @@
     </excludedpackages>
 
     <instructions type="install">
+        <instruction type="file" application="rp" />
         <instruction type="file" application="wcf">files_wcf.tar</instruction>
         <instruction type="language" />
     </instructions>
