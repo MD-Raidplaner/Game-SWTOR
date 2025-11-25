@@ -6,6 +6,7 @@ use rp\event\game\GameCollecting;
 use rp\system\faction\Faction;
 use rp\system\game\Game;
 use rp\system\race\Race;
+use rp\system\role\Role;
 use wcf\system\WCF;
 
 /**
@@ -20,7 +21,8 @@ final class SWTORGameListener
         $event->register(new Game(
             'swtor',
             factions: $this->getFactions(),
-            races: $this->getRaces()
+            races: $this->getRaces(),
+            roles: $this->getRoles()
         ));
     }
 
@@ -57,6 +59,25 @@ final class SWTORGameListener
                     ['imperial', 'republic']
                 ),
                 $raceNames
+            )
+        );
+    }
+
+    /**
+     * @return array<string, Role>
+     */
+    private function getRoles(): array
+    {
+        return \array_combine(
+            $roleNames = ['damagedealer', 'heal', 'tank'],
+            \array_map(
+                fn($role) => new Role(
+                    $role,
+                    WCF::getTPL()->get(\sprintf('rp.role.swtor.%s', $role)),
+                    \sprintf('swtor_%s', $role),
+                    ['imperial', 'republic']
+                ),
+                $roleNames
             )
         );
     }
