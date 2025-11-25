@@ -3,6 +3,7 @@
 namespace rp\system\event\listener;
 
 use rp\event\game\GameCollecting;
+use rp\system\classification\Classification;
 use rp\system\faction\Faction;
 use rp\system\game\Game;
 use rp\system\race\Race;
@@ -22,8 +23,53 @@ final class SWTORGameListener
             'swtor',
             factions: $this->getFactions(),
             races: $this->getRaces(),
-            roles: $this->getRoles()
+            roles: $this->getRoles(),
+            classifications: $this->getClassifications()
         ));
+    }
+
+    /**
+     * @return array<string, Classification>
+     */
+    private function getClassifications(): array
+    {
+        $factions = ['imperial', 'republic'];
+        $races = ['cathar', 'chiss', 'cyborg', 'human', 'miraluka', 'mirialan', 'rattataki', 'sith', 'togruta', 'twilek', 'zabrak'];
+        
+        $classificationConfig = [
+            'assassin' => ['damagedealer', 'tank'],
+            'commando' => ['damagedealer', 'heal'],
+            'guardian' => ['damagedealer', 'tank'],
+            'gunslinger' => ['damagedealer'],
+            'juggernaut' => ['damagedealer', 'tank'],
+            'marauder' => ['damagedealer'],
+            'mercenary' => ['damagedealer', 'heal'],
+            'operative' => ['damagedealer', 'heal'],
+            'powertech' => ['damagedealer', 'tank'],
+            'sage' => ['damagedealer', 'heal'],
+            'scoundrel' => ['damagedealer', 'heal'],
+            'sentinel' => ['damagedealer'],
+            'shadow' => ['damagedealer', 'heal'],
+            'sniper' => ['damagedealer'],
+            'sorcerer' => ['damagedealer', 'heal'],
+            'vanguard' => ['damagedealer', 'tank'],
+        ];
+
+        return \array_combine(
+            \array_keys($classificationConfig),
+            \array_map(
+                fn($class, $roles) => new Classification(
+                    $class,
+                    WCF::getTPL()->get(\sprintf('rp.classification.swtor.%s', $class)),
+                    \sprintf('swtor_%s', $class),
+                    $factions,
+                    races: $races,
+                    roles: $roles
+                ),
+                \array_keys($classificationConfig),
+                \array_values($classificationConfig)
+            )
+        );
     }
 
     /**
