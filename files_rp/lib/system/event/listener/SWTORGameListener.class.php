@@ -17,6 +17,8 @@ use wcf\system\WCF;
  */
 final class SWTORGameListener
 {
+    private const FACTIONS = ['imperial', 'republic'];
+
     public function __invoke(GameCollecting $event): void
     {
         $event->register(new Game(
@@ -33,7 +35,6 @@ final class SWTORGameListener
      */
     private function getClassifications(): array
     {
-        $factions = ['imperial', 'republic'];
         $races = ['cathar', 'chiss', 'cyborg', 'human', 'miraluka', 'mirialan', 'rattataki', 'sith', 'togruta', 'twilek', 'zabrak'];
         
         $classificationConfig = [
@@ -60,9 +61,9 @@ final class SWTORGameListener
             \array_map(
                 fn($class, $roles) => new Classification(
                     $class,
-                    WCF::getTPL()->get(\sprintf('rp.classification.swtor.%s', $class)),
+                    WCF::getLanguage()->get(\sprintf('rp.classification.swtor.%s', $class)),
                     \sprintf('swtor_%s', $class),
-                    $factions,
+                    self::FACTIONS,
                     races: $races,
                     roles: $roles
                 ),
@@ -78,14 +79,14 @@ final class SWTORGameListener
     private function getFactions(): array
     {
         return \array_combine(
-            $factionNames = ['imperial', 'republic'],
+            self::FACTIONS,
             \array_map(
                 fn($faction) => new Faction(
                     $faction,
-                    WCF::getTPL()->get(\sprintf('rp.faction.swtor.%s', $faction)),
+                    WCF::getLanguage()->get(\sprintf('rp.faction.swtor.%s', $faction)),
                     \sprintf('swtor_%s', $faction)
                 ),
-                $factionNames
+                self::FACTIONS
             )
         );
     }
@@ -100,9 +101,9 @@ final class SWTORGameListener
             \array_map(
                 fn($race) => new Race(
                     $race,
-                    WCF::getTPL()->get(\sprintf('rp.race.swtor.%s', $race)),
+                    WCF::getLanguage()->get(\sprintf('rp.race.swtor.%s', $race)),
                     \sprintf('swtor_%s', $race),
-                    ['imperial', 'republic']
+                    self::FACTIONS
                 ),
                 $raceNames
             )
@@ -119,9 +120,9 @@ final class SWTORGameListener
             \array_map(
                 fn($role) => new Role(
                     $role,
-                    WCF::getTPL()->get(\sprintf('rp.role.swtor.%s', $role)),
+                    WCF::getLanguage()->get(\sprintf('rp.role.swtor.%s', $role)),
                     \sprintf('swtor_%s', $role),
-                    ['imperial', 'republic']
+                    self::FACTIONS
                 ),
                 $roleNames
             )
