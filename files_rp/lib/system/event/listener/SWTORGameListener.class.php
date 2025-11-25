@@ -5,6 +5,8 @@ namespace rp\system\event\listener;
 use rp\event\game\GameCollecting;
 use rp\system\faction\Faction;
 use rp\system\game\Game;
+use rp\system\race\Race;
+use wcf\system\WCF;
 
 /**
  * @author  Marco Daries
@@ -17,7 +19,8 @@ final class SWTORGameListener
     {
         $event->register(new Game(
             'swtor',
-            factions: $this->getFactions()
+            factions: $this->getFactions(),
+            races: $this->getRaces()
         ));
     }
 
@@ -35,6 +38,25 @@ final class SWTORGameListener
                     \sprintf('swtor_%s', $faction)
                 ),
                 $factionNames
+            )
+        );
+    }
+
+    /**
+     * @return array<string, Race>
+     */
+    private function getRaces(): array
+    {
+        return \array_combine(
+            $raceNames = ['cathar', 'chiss', 'cyborg', 'human', 'miraluka', 'mirialan', 'nautolaner', 'rattataki', 'sith', 'togruta', 'twilek'],
+            \array_map(
+                fn($race) => new Race(
+                    $race,
+                    WCF::getTPL()->get(\sprintf('rp.race.swtor.%s', $race)),
+                    \sprintf('swtor_%s', $race),
+                    ['imperial', 'republic']
+                ),
+                $raceNames
             )
         );
     }
